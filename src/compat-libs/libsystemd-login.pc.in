@@ -1,0 +1,16 @@
+#  This file is part of systemd-compat-libs.
+#
+#  This source code is licensed under the license found in the
+#  LICENSE file in the root directory of this source tree.
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: systemd
+Description: systemd Login Utility Library - deprecated
+URL: @PACKAGE_URL@
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lsystemd
+Cflags: -I${includedir}

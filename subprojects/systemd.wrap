@@ -1,0 +1,9 @@
+[wrap-file]
+directory = systemd-234
+source_url = https://github.com/systemd/systemd/archive/v234.tar.gz
+source_filename = systemd-234.tar.gz
+source_hash = da3e69d10aa1c983d33833372ad4929037b411ac421fb085c8cee79ae1d80b6a
+
+patch_url = https://github.com/facebookincubator/systemd-compat-libs/raw/master/wrap-patches/systemd-234-wrap-patch.tar.gz
+patch_filename = systemd-234-wrap-patch.tar.gz
+patch_hash = 92d0e29e2fc129a84dd92f581f3a73b261f55b0c16b6e32ea0fc63e236e3d432

@@ -1,0 +1,5 @@
+This codebase is a derivative work of the systemd project
+(https://github.com/systemd/systemd) and is thus covered by the same license
+(LGPLv2.1+, see LICENSE.LGPL2.1 for the full text). Specifically, this project
+is branched off the v234 tag, and includes code that was part of systemd before
+the 4de282cf9324ab13d17ac334244d0d7cae2df37d changeset.

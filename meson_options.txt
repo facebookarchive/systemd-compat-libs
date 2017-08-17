@@ -1,0 +1,6 @@
+# -*- mode: meson -*-
+
+option('rootlibdir', type : 'string',
+       description : '''[/usr]/lib/x86_64-linux-gnu or such''')
+option('rootprefix', type : 'string',
+       description : '''override the root prefix''')

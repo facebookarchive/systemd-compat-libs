@@ -1,0 +1,2 @@
+This directory contains patches for systemd to be applied by wrap. See
+http://mesonbuild.com/Wrap-dependency-system-manual.html for details.
