@@ -17,8 +17,6 @@ project('systemd-compat-libs', 'c',
         meson_version : '>= 0.40',
        )
 
-git = find_program('git')
-
 rootprefixdir = get_option('rootprefix')
 
 prefixdir = get_option('prefix')
@@ -144,3 +142,5 @@ libsystemd_journal = shared_library(
         install : true,
         install_dir : rootlibdir,
 )
+
+meson.add_install_script(meson.source_root() + '/tools/meson-cleanup-install.sh')
