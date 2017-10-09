@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '234',
+        version : '235',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',
@@ -57,7 +57,7 @@ libsystemd_internal = systemd_sp.get_variable('libsystemd_internal')
 libsystemd = systemd_sp.get_variable('libsystemd')
 journal_internal_sources = systemd_sp.get_variable('journal_internal_sources')
 
-systemd_base = 'subprojects/systemd-234'
+systemd_base = 'subprojects/systemd-' + meson.project_version()
 systemd_src = join_paths([systemd_base, 'src'])
 
 includes = include_directories(
