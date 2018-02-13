@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '235',
+        version : '237',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',
@@ -14,7 +14,7 @@ project('systemd-compat-libs', 'c',
                 'sysconfdir=/etc',
                 'localstatedir=/var',
         ],
-        meson_version : '>= 0.40',
+        meson_version : '>= 0.44',
        )
 
 rootprefixdir = get_option('rootprefix')
@@ -48,14 +48,19 @@ meson_compat_lib_sh = find_program('tools/meson-compat-lib.sh')
 subdir('src/compat-libs')
 
 libbasic = systemd_sp.get_variable('libbasic')
+libbasic_gcrypt = systemd_sp.get_variable('libbasic_gcrypt')
 librt = systemd_sp.get_variable('librt')
 libgcrypt = systemd_sp.get_variable('libgcrypt')
 threads = systemd_sp.get_variable('threads')
 libxz = systemd_sp.get_variable('libxz')
 liblz4 = systemd_sp.get_variable('liblz4')
-libsystemd_internal = systemd_sp.get_variable('libsystemd_internal')
+libsystemd_static = systemd_sp.get_variable('libsystemd_static')
 libsystemd = systemd_sp.get_variable('libsystemd')
-journal_internal_sources = systemd_sp.get_variable('journal_internal_sources')
+libjournal_client = systemd_sp.get_variable('libjournal_client')
+
+sd_daemon_c = systemd_sp.get_variable('sd_daemon_c')
+sd_login_c = systemd_sp.get_variable('sd_login_c')
+sd_event_c = systemd_sp.get_variable('sd_event_c')
 
 systemd_base = 'subprojects/systemd-' + meson.project_version()
 systemd_src = join_paths([systemd_base, 'src'])
@@ -66,11 +71,7 @@ includes = include_directories(
   join_paths([systemd_src, 'systemd']),
 )
 
-id128_sources = [
-  join_paths([systemd_src, 'libsystemd/sd-id128/id128-util.h']),
-  join_paths([systemd_src, 'libsystemd/sd-id128/id128-util.c']),
-  join_paths([systemd_src, 'libsystemd/sd-id128/sd-id128.c']),
-]
+id128_sources = systemd_sp.get_variable('id128_sources')
 
 cargs = [
   '-imacros../src/compat-libs/linkwarning.h',
@@ -79,7 +80,7 @@ cargs = [
 
 libsystemd_daemon = shared_library(
         'systemd-daemon',
-        join_paths([systemd_src, 'libsystemd/sd-daemon/sd-daemon.c']),
+        sd_daemon_c,
         libsystemd_daemon_src,
         version : '0.0.12',
         include_directories : includes,
@@ -111,7 +112,7 @@ libsystemd_id128 = shared_library(
 
 libsystemd_login = shared_library(
         'systemd-login',
-        join_paths([systemd_src, 'libsystemd/sd-login/sd-login.c']),
+        sd_login_c,
         libsystemd_login_src,
         version : '0.9.3',
         include_directories : includes,
@@ -126,17 +127,14 @@ libsystemd_login = shared_library(
 
 libsystemd_journal = shared_library(
         'systemd-journal',
-        journal_internal_sources,
-        id128_sources,
-        join_paths([systemd_src, 'libsystemd/sd-event/sd-event.c']),
-        join_paths([systemd_src, 'libsystemd/sd-daemon/sd-daemon.c']),
-        [libsystemd_journal_src],
+        libsystemd_journal_src,
         version : '0.11.5',
         include_directories : includes,
         c_args : cargs,
         link_args : ['-shared',
                      '-Wl,--version-script=' + '../src/compat-libs/libsystemd-journal.sym'],
-        link_with : [libbasic],
+        link_with : [libbasic, libbasic_gcrypt],
+        link_whole: [libsystemd_static, libjournal_client],
         link_depends : 'src/compat-libs/libsystemd-journal.sym',
         dependencies : [libgcrypt, librt, threads, libxz, liblz4],
         install : true,
