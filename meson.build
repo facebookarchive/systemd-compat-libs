@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '238',
+        version : '239',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',
@@ -41,7 +41,13 @@ endif
 pkgconfigdatadir = join_paths(datadir, 'pkgconfig')
 pkgconfiglibdir = join_paths(libdir, 'pkgconfig')
 
-systemd_sp = subproject('systemd')
+systemd_sp = subproject('systemd', 
+                        default_options: [
+                                # workaround for 
+                                # https://github.com/systemd/systemd/issues/9403
+                                'dns-over-tls=false',
+                        ]
+                       )
 
 meson_compat_lib_sh = find_program('tools/meson-compat-lib.sh')
 
