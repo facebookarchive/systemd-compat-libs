@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '239',
+        version : '241',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',
@@ -41,13 +41,7 @@ endif
 pkgconfigdatadir = join_paths(datadir, 'pkgconfig')
 pkgconfiglibdir = join_paths(libdir, 'pkgconfig')
 
-systemd_sp = subproject('systemd', 
-                        default_options: [
-                                # workaround for 
-                                # https://github.com/systemd/systemd/issues/9403
-                                'dns-over-tls=false',
-                        ]
-                       )
+systemd_sp = subproject('systemd')
 
 meson_compat_lib_sh = find_program('tools/meson-compat-lib.sh')
 
@@ -64,9 +58,9 @@ libsystemd_static = systemd_sp.get_variable('libsystemd_static')
 libsystemd = systemd_sp.get_variable('libsystemd')
 libjournal_client = systemd_sp.get_variable('libjournal_client')
 
-sd_daemon_c = systemd_sp.get_variable('sd_daemon_c')
-sd_login_c = systemd_sp.get_variable('sd_login_c')
-sd_event_c = systemd_sp.get_variable('sd_event_c')
+sd_daemon_sources = systemd_sp.get_variable('sd_daemon_sources')
+sd_login_sources = systemd_sp.get_variable('sd_login_sources')
+disable_mempool_c = systemd_sp.get_variable('disable_mempool_c')
 
 systemd_base = 'subprojects/systemd-' + meson.project_version()
 systemd_src = join_paths([systemd_base, 'src'])
@@ -86,8 +80,9 @@ cargs = [
 
 libsystemd_daemon = shared_library(
         'systemd-daemon',
-        sd_daemon_c,
+        sd_daemon_sources,
         libsystemd_daemon_src,
+        disable_mempool_c,
         version : '0.0.12',
         include_directories : includes,
         c_args : cargs,
@@ -105,6 +100,7 @@ libsystemd_id128 = shared_library(
         'systemd-id128',
         id128_sources,
         libsystemd_id128_src,
+        disable_mempool_c,
         version : '0.0.28',
         include_directories : includes,
         c_args : cargs,
@@ -118,8 +114,9 @@ libsystemd_id128 = shared_library(
 
 libsystemd_login = shared_library(
         'systemd-login',
-        sd_login_c,
+        sd_login_sources,
         libsystemd_login_src,
+        disable_mempool_c,
         version : '0.9.3',
         include_directories : includes,
         c_args : cargs,
@@ -134,6 +131,7 @@ libsystemd_login = shared_library(
 libsystemd_journal = shared_library(
         'systemd-journal',
         libsystemd_journal_src,
+        disable_mempool_c,
         version : '0.11.5',
         include_directories : includes,
         c_args : cargs,
