@@ -1,5 +1,9 @@
 [wrap-file]
-directory = systemd-239
-source_url = https://github.com/systemd/systemd/archive/v239.tar.gz
-source_filename = systemd-239.tar.gz
-source_hash = 8a11b1b07d620f4c06a16e95bba4dd2a97e90efdf2a5ba47ed0a935085787a14
+directory = systemd-241
+source_url = https://github.com/systemd/systemd/archive/v241.tar.gz
+source_filename = systemd-241.tar.gz
+source_hash = b2561a8e1d10a2c248253f0dda31a85dd6d69f2b54177de55e02cd1d2778316e
+
+patch_url = https://github.com/facebookincubator/systemd-compat-libs/raw/master/wrap-patches/systemd-241-wrap-patch.tar.gz
+patch_filename = systemd-241-wrap-patch.tar.gz
+patch_hash = 8447b83a679ddbee6099aaaa3b08390c82629becfe9a2dc083cf8e689d0eb245

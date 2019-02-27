@@ -6,12 +6,12 @@
 #
 
 substs = configuration_data()
-substs.set('PACKAGE_URL',          'https://www.freedesktop.org/wiki/Software/systemd')
-substs.set('PACKAGE_VERSION',      meson.project_version())
-substs.set('prefix',                                          prefixdir)
-substs.set('exec_prefix',                                     prefixdir)
-substs.set('libdir',                                          libdir)
-substs.set('includedir',                                      includedir)
+substs.set('PACKAGE_URL', 'https://www.freedesktop.org/wiki/Software/systemd')
+substs.set('PACKAGE_VERSION', meson.project_version())
+substs.set('prefix', prefixdir)
+substs.set('exec_prefix', prefixdir)
+substs.set('libdir', libdir)
+substs.set('includedir', includedir)
 
 libsystemd_daemon_src = custom_target(
         'libsystemd-daemon.c',
