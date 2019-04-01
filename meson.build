@@ -62,7 +62,10 @@ sd_daemon_sources = systemd_sp.get_variable('sd_daemon_sources')
 sd_login_sources = systemd_sp.get_variable('sd_login_sources')
 disable_mempool_c = systemd_sp.get_variable('disable_mempool_c')
 
-systemd_base = 'subprojects/systemd-' + meson.project_version()
+# project_source_root is an absolute path, which meson doesn't like, so turn
+# it into a relative one by extracting the last component of it
+systemd_dir = systemd_sp.get_variable('project_source_root').split('/').get(-1)
+systemd_base = join_paths(['subprojects', systemd_dir])
 systemd_src = join_paths([systemd_base, 'src'])
 
 includes = include_directories(
