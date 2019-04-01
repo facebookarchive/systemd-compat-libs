@@ -15,6 +15,7 @@ rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/../etc"
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/../var"
 
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/bin"
+rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/sbin"
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/include"
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/lib"
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/share"
