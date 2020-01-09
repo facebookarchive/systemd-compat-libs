@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '243',
+        version : '244',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',

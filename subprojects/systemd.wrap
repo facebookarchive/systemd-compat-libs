@@ -1,5 +1,5 @@
 [wrap-file]
-directory = systemd-243
-source_url = https://github.com/systemd/systemd/archive/v243.tar.gz
-source_filename = systemd-243.tar.gz
-source_hash = 0611843c2407f8b125b1b7cb93533bdebd4ccf91c99dffa64ec61556a258c7d1
+directory = systemd-244
+source_url = https://github.com/systemd/systemd/archive/v244.tar.gz
+source_filename = systemd-244.tar.gz
+source_hash = 2207ceece44108a04bdd5459aa74413d765a829848109da6f5f836c25aa393aa
