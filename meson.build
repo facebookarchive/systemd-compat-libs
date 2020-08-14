@@ -6,7 +6,7 @@
 #
 
 project('systemd-compat-libs', 'c',
-        version : '245',
+        version : '246',
         license : 'LGPLv2+',
         default_options: [
                 'c_std=gnu99',
@@ -57,6 +57,7 @@ liblz4 = systemd_sp.get_variable('liblz4')
 libsystemd_static = systemd_sp.get_variable('libsystemd_static')
 libsystemd = systemd_sp.get_variable('libsystemd')
 libjournal_client = systemd_sp.get_variable('libjournal_client')
+libzstd = systemd_sp.get_variable('libzstd')
 
 sd_daemon_sources = systemd_sp.get_variable('sd_daemon_sources')
 sd_login_sources = systemd_sp.get_variable('sd_login_sources')
@@ -143,7 +144,7 @@ libsystemd_journal = shared_library(
         link_with : [libbasic, libbasic_gcrypt],
         link_whole: [libsystemd_static, libjournal_client],
         link_depends : 'src/compat-libs/libsystemd-journal.sym',
-        dependencies : [libgcrypt, librt, threads, libxz, liblz4],
+        dependencies : [libgcrypt, librt, threads, libxz, liblz4, libzstd],
         install : true,
         install_dir : rootlibdir,
 )
