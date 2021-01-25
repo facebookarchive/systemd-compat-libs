@@ -1,5 +1,7 @@
 # systemd compatibility libraries
 
+NOTE: this project is no longer under active development
+
 This is a standalone build of the compatibility libraries for systemd, which
 map library calls for systemd < 209 onto the new `libsystemd.so` provided by
 later versions. These libraries
